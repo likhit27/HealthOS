@@ -1,0 +1,11 @@
+export type MealType="breakfast"|"lunch"|"snack"|"dinner";
+export type DietType="vegetarian"|"egg"|"non_vegetarian";
+export type MealStatus="done"|"partial"|"missed";
+export type Meal={id:string;name:string;mealType:MealType;dietType:DietType;calories:number;protein:number;carbs:number;fat:number;fibre:number;gutRisk:"low"|"medium"|"high";tags:string[];ingredients:string[];recipe:string[]};
+export type PlannedMeal=Meal&{plannedDate:string;slot:MealType};
+export type DayPlan={date:string;day:string;meals:Record<MealType,PlannedMeal>};
+export type Profile={name:string;age:number;heightCm:number;weightKg:number;goalWeightKg:number;proteinMin:number;proteinMax:number;calorieTarget:number;fibreTarget:number;maxEggsPerDay:number;mostlyVegetarian:boolean;pureVegDays:string[];noDalMeals:MealType[];gutFriendlyMode:boolean};
+export type MealLog={id:string;date:string;slot:MealType;mealId:string;status:MealStatus;calories:number;protein:number;actualMealName?:string};
+export type Journal={date:string;gas:number;pain:number;energy:number;stress:number;bowel:"normal"|"loose"|"constipated"|"mixed"|"not_recorded";weightKg?:number;note?:string};
+export type Insight={id:string;title:string;body:string;category:string;severity:"good"|"attention"|"info";evidence?:string};
+export type State={profile:Profile;week:DayPlan[];logs:MealLog[];journals:Journal[];insights:Insight[]};
