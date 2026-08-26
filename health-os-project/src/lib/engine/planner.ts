@@ -1,5 +1,0 @@
-import {meals} from "@/lib/data/meals";import {DayPlan,Meal,MealType} from "@/lib/types";
-const slots:MealType[]=["breakfast","lunch","snack","dinner"];
-function ok(m:Meal,day:string,slot:MealType){if(m.mealType!==slot)return false;if(day==="Tuesday"&&m.dietType==="non_vegetarian")return false;return true}
-export function compatibleSwaps(day:string,slot:MealType){return meals.filter(m=>ok(m,day,slot))}
-export function generateWeek(start=new Date()):DayPlan[]{const out:DayPlan[]=[];const used=new Set<string>();for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);const day=d.toLocaleDateString("en-IN",{weekday:"long"});const date=d.toISOString().slice(0,10);const x={} as Record<MealType,Meal>;for(const s of slots){const pool=meals.filter(m=>ok(m,day,s));const fresh=pool.filter(m=>!used.has(m.id));const pick=(fresh.length?fresh:pool)[Math.floor(Math.random()*Math.min(fresh.length||pool.length,4))];x[s]=pick;used.add(pick.id)}out.push({date,day,meals:x})}return out}
